@@ -1,0 +1,21 @@
+:root {
+    --color-main: #898DF7;
+
+    --color-background: #0B0D10;
+
+    --color-button-primary: #1D1F31;
+    --color-button-onprimary: #FFFFFF;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background);
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
