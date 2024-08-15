@@ -1,12 +1,56 @@
 <script setup lang="ts">
-import PendulumSection from "./features/pendulum/PendulumSection.vue";
-import LogoSection from "./features/logo/LogoSection.vue";
-import BpmDisplaySection from "./features/bpm-display/BpmDisplaySection.vue";
+import PendulumSection from "./components/pendulum/PendulumSection.vue";
+import LogoSection from "./components/logo/LogoSection.vue";
+import BpmDisplaySection from "./components/bpm-display/BpmDisplaySection.vue";
+import ChangeBpmSection from "./components/bpm-control/ChangeBpmSection.vue";
+import PlayControlSection from "./components/bpm-control/PlayControlSection.vue";
 import { useBpm } from "./composables/useBpm";
-import ChangeBpmSection from "./features/control/ChangeBpmSection.vue";
-import PlayControlSection from "./features/control/PlayControlSection.vue";
+import { useMetronome } from "./composables/useMetronome";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 
-const { bpm, changeBpmByStep, MIN_BPM, MAX_BPM } = useBpm(120);
+const { bpm, MIN_BPM, MAX_BPM } = useBpm(120);
+
+const { startMetronome, stopMetronome, setupMetronome, setVolume } = useMetronome();
+
+const isPlaying = ref(false);
+watch(isPlaying, (newIsPlaying) => {
+  if (newIsPlaying) {
+    startMetronome(bpm.value);
+  } else {
+    stopMetronome();
+  }
+});
+const isMuted = ref(false);
+watch(isMuted, (newIsMuted) => {
+  if (newIsMuted) {
+    setVolume(0);
+  } else {
+    setVolume(1);
+  }
+});
+
+
+watch(bpm, (newBpm) => {
+  if (isPlaying.value) {
+    stopMetronome();
+    startMetronome(newBpm);
+  }
+});
+
+
+const onCue = () => {
+  if (!isPlaying.value) return;
+  stopMetronome();
+  startMetronome(bpm.value);
+};
+
+onMounted(() => {
+  setupMetronome();
+});
+onBeforeUnmount(() => {
+  stopMetronome();
+});
+
 </script>
 
 <template>
@@ -16,7 +60,7 @@ const { bpm, changeBpmByStep, MIN_BPM, MAX_BPM } = useBpm(120);
       <PendulumSection />
       <BpmDisplaySection :bpm="bpm" />
       <ChangeBpmSection v-model:bpm="bpm" :minBpm="MIN_BPM" :maxBpm="MAX_BPM" />
-      <PlayControlSection />
+      <PlayControlSection v-model:isPlaying="isPlaying" v-model:isMuted="isMuted" @cue="onCue" />
     </div>
   </div>
 </template>

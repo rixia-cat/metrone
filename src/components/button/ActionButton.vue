@@ -24,7 +24,7 @@ const onClick = () => {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 24px 20px;
+    padding: 16px 16px;
     background-color: var(--color-button-action-primary);
     border: none;
     border-radius: 8px;

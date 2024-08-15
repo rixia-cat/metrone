@@ -1,28 +1,17 @@
 <template>
-    <div class="pendulum-container">
-        <div class="pendulum">
-            <div class="pendulum-rod"></div>
-            <div class="pendulum-base"></div>
-        </div>
+    <div class="pendulum">
+        <div class="pendulum-rod"></div>
+        <div class="pendulum-base"></div>
     </div>
 </template>
 
 <style scoped>
-.pendulum-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-pendulum-background);
-    padding: 16px;
-    border-radius: 16px;
-}
-
 .pendulum {
     position: relative;
     width: 100px;
     height: 100px;
+    transform: rotate(0deg);
+    transform-origin: 50% 100%;
 }
 
 .pendulum-rod {
@@ -33,6 +22,7 @@
     height: 100%;
     background-color: var(--color-main);
     transform: translateX(-50%);
+
 }
 
 .pendulum-base {

@@ -29,10 +29,12 @@ const isPlaying = defineModel('isPlaying', {
 
 .play-button:hover {
     background-color: var(--color-button-play-primary-hover);
+    border-radius: 50%;
 }
 
 .play-button:active {
     background-color: var(--color-button-play-primary-active);
+    border-radius: 50%;
 }
 
 .play-button-icon {

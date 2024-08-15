@@ -13,12 +13,17 @@ const isMuted = defineModel('isMuted', {
     default: false
 });
 
+const emits = defineEmits<(e: 'cue') => void>();
+
+const onClickCue = () => {
+    emits('cue');
+};
 
 </script>
 
 <template>
     <div class="play-control-container">
-        <ActionFlatButton>
+        <ActionFlatButton @click="onClickCue">
             <template #icon>
                 <PhSkipBack class="flat-button-icon" />
             </template>
