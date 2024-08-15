@@ -3,8 +3,19 @@
 
     --color-background: #0B0D10;
 
-    --color-button-primary: #1D1F31;
-    --color-button-onprimary: #FFFFFF;
+    --color-pendulum-background: #1A1C23;
+
+    --color-button-action-primary: #1D1F31;
+    --color-button-action-primary-hover: #333656;
+    --color-button-action-primary-active: #4A4C7B;
+    --color-button-action-onprimary: #FFFFFF;
+
+    --color-button-play-primary: #26284E;
+    --color-button-play-primary-hover: #333656;
+    --color-button-play-primary-active: #4A4C7B;
+    --color-button-play-border: #32345C;
+    --color-button-play-onprimary: var(--color-main);
+
 }
 
 html {
