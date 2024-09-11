@@ -1,6 +1,22 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const props = defineProps<{
+    angle: number;
+}>();
+
+const angle = computed(() => props.angle);
+
+const penndulumRodStyle = computed(() => {
+    return {
+        transform: `rotate(${angle.value}deg) translateX(-50%)`,
+    };
+});
+
+</script>
 <template>
     <div class="pendulum">
-        <div class="pendulum-rod"></div>
+        <div class="pendulum-rod" :style="penndulumRodStyle"></div>
         <div class="pendulum-base"></div>
     </div>
 </template>
@@ -10,8 +26,6 @@
     position: relative;
     width: 100px;
     height: 100px;
-    transform: rotate(0deg);
-    transform-origin: 50% 100%;
 }
 
 .pendulum-rod {
@@ -22,7 +36,8 @@
     height: 100%;
     background-color: var(--color-main);
     transform: translateX(-50%);
-
+    transform-origin: 50% 100%;
+    transition: transform 0.2s ease-in-out;
 }
 
 .pendulum-base {

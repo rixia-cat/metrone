@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import Pendulum from './component/Pendulum.vue';
+
+const props = defineProps<{
+    angle: number;
+}>();
+
+const angle = computed(() => props.angle);
+
 </script>
 
 <template>
     <div class="pendulum-container">
-        <Pendulum />
+        <Pendulum :angle="angle" />
     </div>
 </template>
 

@@ -10,7 +10,19 @@ import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 
 const { bpm, MIN_BPM, MAX_BPM } = useBpm(120);
 
-const { startMetronome, stopMetronome, setupMetronome, setVolume } = useMetronome();
+const currentPendulumAngle = ref(0);
+const onTick = () => {
+  if (isPlaying.value) {
+    if (currentPendulumAngle.value === 0) {
+      currentPendulumAngle.value = 47;
+    } else {
+      currentPendulumAngle.value = currentPendulumAngle.value === 47 ? -47 : 47;
+    }
+  }
+};
+const { startMetronome, stopMetronome, setupMetronome, setVolume } = useMetronome({
+  onTickCallback: onTick,
+});
 
 const isPlaying = ref(false);
 watch(isPlaying, (newIsPlaying) => {
@@ -18,14 +30,15 @@ watch(isPlaying, (newIsPlaying) => {
     startMetronome(bpm.value);
   } else {
     stopMetronome();
+    currentPendulumAngle.value = 0;
   }
 });
 const isMuted = ref(false);
 watch(isMuted, (newIsMuted) => {
   if (newIsMuted) {
-    setVolume(0);
+    setVolume(-999);
   } else {
-    setVolume(1);
+    setVolume(0);
   }
 });
 
@@ -44,6 +57,7 @@ const onCue = () => {
   startMetronome(bpm.value);
 };
 
+
 onMounted(() => {
   setupMetronome();
 });
@@ -57,7 +71,7 @@ onBeforeUnmount(() => {
   <div class="container">
     <div class="sections-area">
       <LogoSection />
-      <PendulumSection />
+      <PendulumSection :angle="currentPendulumAngle" />
       <BpmDisplaySection :bpm="bpm" />
       <ChangeBpmSection v-model:bpm="bpm" :minBpm="MIN_BPM" :maxBpm="MAX_BPM" />
       <PlayControlSection v-model:isPlaying="isPlaying" v-model:isMuted="isMuted" @cue="onCue" />

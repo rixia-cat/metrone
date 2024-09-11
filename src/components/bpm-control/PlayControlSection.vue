@@ -23,7 +23,7 @@ const onClickCue = () => {
 
 <template>
     <div class="play-control-container">
-        <ActionFlatButton @click="onClickCue">
+        <ActionFlatButton @mousedown="onClickCue">
             <template #icon>
                 <PhSkipBack class="flat-button-icon" />
             </template>
@@ -59,6 +59,6 @@ const onClickCue = () => {
 
 .flat-button-icon {
     color: var(--color-main);
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 </style>

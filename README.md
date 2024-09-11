@@ -1,6 +1,6 @@
 # metrone
 
-Metronome App.
+メトロノームのWebアプリ　WIPです。
 
 ## Vue 3 + TypeScript + Vite
 

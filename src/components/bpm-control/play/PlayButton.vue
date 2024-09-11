@@ -39,6 +39,6 @@ const isPlaying = defineModel('isPlaying', {
 
 .play-button-icon {
     color: var(--color-main);
-    font-size: 4rem;
+    font-size: 3rem;
 }
 </style>
